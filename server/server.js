@@ -6,7 +6,10 @@ const itemRoutes = require('./routes/items');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Permite solo este origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/crud-next-node')
