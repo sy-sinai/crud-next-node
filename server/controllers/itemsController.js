@@ -14,15 +14,23 @@ exports.getAllItems = async (req, res) => {
 
 // Crear ítem
 exports.createItem = async (req, res) => {
-  try {
-    const { name, description, category, ...customFields } = req.body;
-    const newItem = new Item({ name, description, category, customFields });
-    await newItem.save();
-    res.status(201).json(newItem);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+    try {
+      const { name, description, category, customFields = {} } = req.body;
+  
+      // Asegurar que los campos dinámicos tengan valores por defecto
+      const defaultCustomFields = {
+        rating: customFields.rating || 0,
+        director: customFields.director || '',
+        ...customFields
+      };
+  
+      const newItem = new Item({ name, description, category, customFields: defaultCustomFields });
+      await newItem.save();
+      res.status(201).json(newItem);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  };
 
 // Actualizar ítem
 exports.updateItem = async (req, res) => {
