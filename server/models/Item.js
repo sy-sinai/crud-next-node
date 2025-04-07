@@ -1,11 +1,10 @@
-// server/models/Item.js
 const mongoose = require('mongoose');
 
-const dynamicSchema = new mongoose.Schema({
+const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: String,
-  category: { type: String, default: 'general' }, // 'películas', 'música', etc.
-  customFields: mongoose.Schema.Types.Mixed // Objeto JSON para campos dinámicos
+  description: { type: String, default: '' },
+  category: { type: String, default: 'general' },
+  customFields: { type: Object, default: {} } // Campos dinámicos
 }, { timestamps: true });
 
-module.exports = mongoose.model('Item', dynamicSchema);
+module.exports = mongoose.model('Item', itemSchema);

@@ -1,6 +1,6 @@
 const Item = require('../models/Item');
 
-// Todos los ítems
+
 exports.getAllItems = async (req, res) => {
   try {
     const { category } = req.query;
@@ -12,7 +12,7 @@ exports.getAllItems = async (req, res) => {
   }
 };
 
-// Crear ítem
+
 exports.createItem = async (req, res) => {
     try {
       const { name, description, category, customFields = {} } = req.body;
@@ -32,7 +32,7 @@ exports.createItem = async (req, res) => {
     }
   };
 
-// Actualizar ítem
+
 exports.updateItem = async (req, res) => {
   try {
     const updatedItem = await Item.findByIdAndUpdate(
@@ -46,7 +46,7 @@ exports.updateItem = async (req, res) => {
   }
 };
 
-// Eliminar ítem
+
 exports.deleteItem = async (req, res) => {
   try {
     await Item.findByIdAndDelete(req.params.id);
